@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SVG 图标服务演示</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        min-height: 100vh;
+        padding: 15px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 25px;
+        text-align: center;
+      }
+
+      .header h1 {
+        font-size: 2.2rem;
+        margin-bottom: 8px;
+        font-weight: 300;
+      }
+
+      .header p {
+        font-size: 1rem;
+        opacity: 0.9;
+      }
+
+      .content {
+        padding: 25px;
+      }
+
+      .section {
+        margin-bottom: 25px;
+      }
+
+      .section h2 {
+        color: #333;
+        margin-bottom: 15px;
+        font-size: 1.4rem;
+      }
+
+      .icon-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      .icon-item {
+        background: #f8f9fa;
+        border-radius: 12px;
+        padding: 15px;
+        text-align: center;
+        transition: transform 0.2s, box-shadow 0.2s;
+        border: 2px solid transparent;
+      }
+
+      .icon-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        border-color: #667eea;
+      }
+
+      .icon-item img {
+        margin-bottom: 12px;
+        border-radius: 6px;
+      }
+
+      .icon-item h3 {
+        color: #333;
+        margin-bottom: 8px;
+        font-size: 1rem;
+      }
+
+      .icon-item p {
+        color: #666;
+        font-size: 0.85rem;
+        line-height: 1.3;
+      }
+
+      .controls {
+        background: #f8f9fa;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+
+      .control-group {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 15px;
+        margin-bottom: 15px;
+      }
+
+      .control-item {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .control-item label {
+        margin-bottom: 6px;
+        color: #333;
+        font-weight: 500;
+      }
+
+      .control-item input,
+      .control-item select {
+        padding: 8px;
+        border: 2px solid #e9ecef;
+        border-radius: 6px;
+        font-size: 0.95rem;
+        transition: border-color 0.2s;
+      }
+
+      .control-item input:focus,
+      .control-item select:focus {
+        outline: none;
+        border-color: #667eea;
+      }
+
+      .btn {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 10px 25px;
+        border-radius: 6px;
+        font-size: 0.95rem;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+      }
+
+      .preview {
+        text-align: center;
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 12px;
+      }
+
+      .preview img {
+        border-radius: 8px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .url-display {
+        background: #e9ecef;
+        padding: 12px;
+        border-radius: 6px;
+        margin-top: 15px;
+        font-family: monospace;
+        word-break: break-all;
+        color: #495057;
+      }
+
+      .footer {
+        text-align: center;
+        padding: 15px;
+        color: #666;
+      }
+
+      @media (max-width: 768px) {
+        .header h1 {
+          font-size: 1.8rem;
+        }
+
+        .content {
+          padding: 15px;
+        }
+
+        .control-group {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>SVG 图标服务</h1>
+        <p>动态生成和自定义 SVG 图标的强大服务</p>
+      </div>
+
+      <div class="content">
+        <div class="section">
+          <h2>示例</h2>
+          <div class="icon-grid">
+            <div class="icon-item">
+              <img
+                src="/icon?icon=home&color=%23ff5722&size=48"
+                alt="首页图标"
+              />
+              <h3>首页图标</h3>
+              <p>橙色，48px，描边样式</p>
+            </div>
+            <div class="icon-item">
+              <img
+                src="/icon?icon=heart&color=red&size=48&filled=true"
+                alt="心形图标"
+              />
+              <h3>心形图标</h3>
+              <p>红色，48px，填充样式</p>
+            </div>
+            <div class="icon-item">
+              <img
+                src="/icon?icon=user&color=blue&size=48&strokeWidth=1"
+                alt="用户图标"
+              />
+              <h3>用户图标</h3>
+              <p>蓝色，48px，细描边</p>
+            </div>
+            <div class="icon-item">
+              <img
+                src="/icon?icon=star&color=%23ffc107&size=48&filled=true"
+                alt="星形图标"
+              />
+              <h3>星形图标</h3>
+              <p>金色，48px，填充样式</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2>自定义</h2>
+          <div class="controls">
+            <div class="control-group">
+              <div class="control-item">
+                <label for="iconSelect">选择图标</label>
+                <select id="iconSelect">
+                  <option value="home">首页 (home)</option>
+                  <option value="user">用户 (user)</option>
+                  <option value="search">搜索 (search)</option>
+                  <option value="heart">心形 (heart)</option>
+                  <option value="star">星形 (star)</option>
+                  <option value="settings">设置 (settings)</option>
+                  <option value="arrow">箭头 (arrow)</option>
+                  <option value="close">关闭 (close)</option>
+                  <option value="menu">菜单 (menu)</option>
+                  <option value="download">下载 (download)</option>
+                </select>
+              </div>
+              <div class="control-item">
+                <label for="colorInput">颜色</label>
+                <input type="color" id="colorInput" value="#667eea" />
+              </div>
+              <div class="control-item">
+                <label for="sizeInput">尺寸</label>
+                <input
+                  type="range"
+                  id="sizeInput"
+                  min="16"
+                  max="128"
+                  value="48"
+                />
+                <span id="sizeValue">48px</span>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <div class="control-item">
+                <label for="filledCheckbox">
+                  <input type="checkbox" id="filledCheckbox" /> 填充样式
+                </label>
+              </div>
+              <div class="control-item">
+                <label for="strokeWidthInput">描边宽度</label>
+                <input
+                  type="range"
+                  id="strokeWidthInput"
+                  min="0.5"
+                  max="5"
+                  step="0.5"
+                  value="2"
+                />
+                <span id="strokeWidthValue">2</span>
+              </div>
+              <div class="control-item">
+                <label for="strokeLinecapSelect">描边端点</label>
+                <select id="strokeLinecapSelect">
+                  <option value="round">圆形 (round)</option>
+                  <option value="butt">平直 (butt)</option>
+                  <option value="square">方形 (square)</option>
+                </select>
+              </div>
+            </div>
+
+            <button class="btn" onclick="updatePreview()">更新预览</button>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2>预览</h2>
+          <div class="preview">
+            <img
+              id="previewImage"
+              src="/icon?icon=home&color=%23667eea&size=48"
+              alt="预览图标"
+            />
+            <div class="url-display" id="urlDisplay">
+              /icon?icon=home&color=%23667eea&size=48
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p>基于 Express 构建的 SVG 图标服务 | 支持动态参数和实时生成</p>
+      </div>
+    </div>
+
+    <script>
+      // 更新尺寸显示
+      document
+        .getElementById("sizeInput")
+        .addEventListener("input", function () {
+          document.getElementById("sizeValue").textContent = this.value + "px";
+        });
+
+      // 更新描边宽度显示
+      document
+        .getElementById("strokeWidthInput")
+        .addEventListener("input", function () {
+          document.getElementById("strokeWidthValue").textContent = this.value;
+        });
+
+      // 更新预览
+      function updatePreview() {
+        const icon = document.getElementById("iconSelect").value;
+        const color = document.getElementById("colorInput").value;
+        const size = document.getElementById("sizeInput").value;
+        const filled = document.getElementById("filledCheckbox").checked;
+        const strokeWidth = document.getElementById("strokeWidthInput").value;
+        const strokeLinecap = document.getElementById(
+          "strokeLinecapSelect"
+        ).value;
+
+        // 构建查询参数
+        const params = new URLSearchParams({
+          icon: icon,
+          color: color,
+          size: size,
+          filled: filled.toString(),
+          strokeWidth: strokeWidth,
+          strokeLinecap: strokeLinecap,
+        });
+
+        const url = `/icon?${params.toString()}`;
+
+        // 更新预览图片
+        document.getElementById("previewImage").src = url;
+        document.getElementById("previewImage").alt = `${icon} 图标`;
+
+        // 更新 URL 显示
+        document.getElementById("urlDisplay").textContent = url;
+      }
+
+      // 页面加载完成后初始化
+      document.addEventListener("DOMContentLoaded", function () {
+        updatePreview();
+      });
+    </script>
+  </body>
+</html>
